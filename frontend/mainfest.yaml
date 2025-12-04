@@ -26,6 +26,9 @@ spec:
       - name: frontend
         image: someshwarsangaraju/frontend:v1
         imagePullPolicy: Always
+        ports:
+        - name: liveness-port
+          containerPort: 80
         readinessProbe:
           httpGet:
             path: /
