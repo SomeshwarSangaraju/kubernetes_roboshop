@@ -14,4 +14,48 @@ spec:
       project: roboshop
       component: shipping
       tier: backend
+  template:
+    metadata:
+      name: shipping
+      labels:
+        project: roboshop
+        component: shipping
+        tier: backend
+    spec:
+      containers:
+      - name: shipping
+        image: someshwarsangaraju/shipping:v1
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: shipping
+        readinessProbe:
+          httpGet:
+          path: /health
+          port: liveness-port
+          failureThreshold: 1
+          periodSeconds: 15
+        livenessProbe:
+          httpGet:
+          path: /health
+          port: liveness-port
+          failureThreshold: 11
+          periodSeconds: 15
+---
+
+apiVersion:
+kind: Service
+metadata:
+  name: shipping
+  namespace: roboshop
+spec:
+  selector:
+    project: roboshop
+    component: shipping
+    tier: backend
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+
 
