@@ -30,10 +30,11 @@ spec:
       tier: backend
   template:
     metadata:
-      name: payment
-      project: roboshop
-      component: payment
-      tier: backend
+      labels:
+        name: payment
+        project: roboshop
+        component: payment
+        tier: backend
     spec:
       containers:
       - name: payment
